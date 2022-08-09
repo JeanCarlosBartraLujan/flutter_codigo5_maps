@@ -14,6 +14,7 @@ class _PermissionPageState extends State<PermissionPage> {
     switch(status){
       case PermissionStatus.granted:
         Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+
         break;
       case PermissionStatus.denied:
       case PermissionStatus.limited:
