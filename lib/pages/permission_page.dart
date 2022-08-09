@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_codigo5_maps/pages/home_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class PermissionPage extends StatelessWidget {
-  const PermissionPage({Key? key}) : super(key: key);
+class PermissionPage extends StatefulWidget {
+  @override
+  State<PermissionPage> createState() => _PermissionPageState();
+}
+
+class _PermissionPageState extends State<PermissionPage> {
+
+  checkPermission(PermissionStatus status){
+    switch(status){
+      case PermissionStatus.granted:
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+        break;
+      case PermissionStatus.denied:
+      case PermissionStatus.limited:
+      case PermissionStatus.permanentlyDenied:
+      case PermissionStatus.restricted:
+        openAppSettings();
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +64,11 @@ class PermissionPage extends StatelessWidget {
               height: 10.0,
             ),
             ElevatedButton(
-              onPressed: () {
-
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+              onPressed: () async{
+                PermissionStatus status = await Permission.location.request();
+                print(status);
+                checkPermission(status);
+                //Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
 
               },
               style: ElevatedButton.styleFrom(
