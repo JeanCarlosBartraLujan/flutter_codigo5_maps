@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -10,7 +8,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-        initialCameraPosition: CameraPosition(target: LatLng(0,0)),
+        initialCameraPosition: CameraPosition(
+          target: LatLng(-16.384416, -71.540073),
+          zoom: 15,
+        ),
       ),
     );
   }
