@@ -53,6 +53,21 @@ class _HomePageState extends State<HomePage> {
     },
   ];
 
+  @override
+  initState(){
+    super.initState();
+    getDataMarkers();
+  }
+
+  getDataMarkers() async{
+    listLocation.forEach((element) async {
+      Uint8List bytes =  await imageToBytes(element["icon"], fromNetwork: true);
+      BitmapDescriptor icon = BitmapDescriptor.fromBytes(bytes);
+
+    });
+  }
+
+
 
   Future<Uint8List> imageToBytes(String path, { int width = 100, bool fromNetwork = false }) async{
 
