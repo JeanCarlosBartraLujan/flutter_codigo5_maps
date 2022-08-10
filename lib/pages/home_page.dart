@@ -13,6 +13,43 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Set<Marker> _markers = {};
 
+
+  List<Map<String, dynamic>> listLocation = [
+    {
+      "title": "Comisaria General",
+      "phone": "986333222",
+      "address": "Av. Lima 1234",
+      "lat": -16.440428,
+      "lon": -71.556919,
+      "icon": "https://pngimg.com/uploads/police_badge/police_badge_PNG97.png",
+    },
+    {
+      "title": "Estación de Bomberos",
+      "phone": "986333222",
+      "address": "Av. Lima 1234",
+      "lat": -16.441953,
+      "lon": -71.558851,
+      "icon": "https://cdn-icons-png.flaticon.com/512/921/921079.png",
+    },
+    {
+      "title": "Posta 1",
+      "phone": "986333222",
+      "address": "Av. Lima 1234",
+      "lat": -16.445788,
+      "lon": -71.556065,
+      "icon": "https://cdn-icons-png.flaticon.com/512/4150/4150567.png",
+    },
+    {
+      "title": "Central de Serenazgo",
+      "phone": "986333222",
+      "address": "Av. Lima 1234",
+      "lat": -16.450554,
+      "lon": -71.553889,
+      "icon": "https://pngimg.com/uploads/police_badge/police_badge_PNG97.png",
+    },
+  ];
+
+
   Future<CameraPosition> initCurrentPosition() async {
     Position position = await Geolocator.getCurrentPosition();
     return CameraPosition(
@@ -40,11 +77,19 @@ class _HomePageState extends State<HomePage> {
                 googleController.setMapStyle(jsonEncode(mapStyle));
               },
               markers: _markers,
-              onTap: (LatLng position) {
+              onTap: (LatLng position)  async{
 
+                MarkerId markerId = MarkerId(_markers.length.toString());
                 Marker marker = Marker(
-                  markerId: MarkerId("00001"),
-                  position: position
+                  markerId: markerId,
+                  // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+                  icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/icons/location-icon.png'),
+                  position: position,
+                  rotation: -4,
+                  draggable: true,
+                  onDrag: (LatLng newPosition){
+                    print(newPosition);
+                  },
                 );
 
                 _markers.add(marker);
