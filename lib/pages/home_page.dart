@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                   markerId: markerId,
                   // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
                   //icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/icons/location-icon.png'),
-                  icon: BitmapDescriptor.fromBytes(await imageToBytes("https://cdn-icons-png.flaticon.com/512/921/921079.png")),
+                  icon: BitmapDescriptor.fromBytes(await imageToBytes("assets/icons/location-icon.png", width: 50 ,fromNetwork: false)),
                   position: position,
                   rotation: -4,
                   draggable: true,
