@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo5_maps/utils/map_style.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -25,9 +28,13 @@ class HomePage extends StatelessWidget {
             return GoogleMap(
               initialCameraPosition: snap.data,
               myLocationEnabled: true,
+              mapType: MapType.normal,
+              onMapCreated: (GoogleMapController googleController){
+                googleController.setMapStyle(jsonEncode(mapStyle));
+              },
             );
           }
-          return Center(child: CircularProgressIndicator(),);
+          return const Center(child: CircularProgressIndicator(),);
         },
       ),
     );
